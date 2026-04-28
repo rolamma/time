@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #eee;
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.poster {
+  position: relative;
+  width: min(100%, 430px);
+  flex-shrink: 0;
+}
+
+.poster img {
+  width: 100%;
+  display: block;
+}
+
+.time {
+  position: absolute;
+  color: #4b3865;
+  font-weight: bold;
+  font-size: clamp(13px, 4vw, 23px);
+  width: 22%;
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* أماكن الأوقات فوق المربعات */
+.fajr {
+  top: 42%;
+  left: 29%;
+}
+
+.sunrise {
+  top: 50%;
+  left: 29%;
+}
+
+.dhuhr {
+  top: 57.5%;
+  left: 29%;
+}
+
+.asr {
+  top: 64.5%;
+  left: 29%;
+}
+
+.maghrib {
+  top: 71.5%;
+  left: 29%;
+}
+
+.isha {
+  top: 78%;
+  left: 29%;
+}
+#downloadBtn {
+  margin: 15px 0;
+  padding: 12px 22px;
+  font-size: 16px;
+  background: #4b3865;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
