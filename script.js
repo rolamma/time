@@ -14,7 +14,6 @@ async function getPrayerTimes() {
     document.querySelector(".asr").textContent = formatTime(t.Asr);
     document.querySelector(".maghrib").textContent = formatTime(t.Maghrib);
     document.querySelector(".isha").textContent = formatTime(t.Isha);
-
   } catch (error) {
     console.log("Error:", error);
   }
@@ -36,21 +35,33 @@ function formatTime(time) {
 
 getPrayerTimes();
 
-/* يحدث الأوقات كل يوم تلقائيًا */
 setInterval(getPrayerTimes, 24 * 60 * 60 * 1000);
-
 
 document.getElementById("downloadBtn").addEventListener("click", async () => {
   const element = document.querySelector(".poster");
 
   const canvas = await html2canvas(element, {
-    scale: 2
+    scale: 2,
+    useCORS: true
   });
 
-  const image = canvas.toDataURL("image/png");
+  canvas.toBlob(async (blob) => {
+    const file = new File([blob], "prayer-times.png", {
+      type: "image/png"
+    });
 
-  const link = document.createElement("a");
-  link.href = image;
-  link.download = "prayer-times.png";
-  link.click();
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: "أوقات الصلاة بالقريات"
+      });
+    } else {
+      const image = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "prayer-times.png";
+      link.click();
+      URL.revokeObjectURL(image);
+    }
+  }, "image/png");
 });
